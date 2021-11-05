@@ -1101,6 +1101,10 @@ abstract class AbstractUserAuthentication implements LoggerAwareInterface
      */
     public function setSessionData($key, $data)
     {
+    	if (null === $this->userSession) {
+			return;
+		}
+
         $this->userSession->set($key, $data);
     }
 
@@ -1113,6 +1117,10 @@ abstract class AbstractUserAuthentication implements LoggerAwareInterface
      */
     public function setAndSaveSessionData($key, $data)
     {
+		if (null === $this->userSession) {
+			return;
+		}
+
         $this->userSession->set($key, $data);
         $this->logger->debug('setAndSaveSessionData: ses_id = {session}', ['session' => sha1($this->userSession->getIdentifier())]);
         $this->userSession = $this->userSessionManager->updateSession($this->userSession);
