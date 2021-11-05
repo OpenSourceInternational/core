@@ -212,7 +212,7 @@ class FlashMessageQueue extends \SplQueue implements \JsonSerializable
      */
     protected function getUserByContext(): ?AbstractUserAuthentication
     {
-        if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && $GLOBALS['TSFE']->fe_user instanceof FrontendUserAuthentication) {
+        if (($GLOBALS['TSFE'] ?? null) instanceof TypoScriptFrontendController && $GLOBALS['TSFE']->fe_user instanceof FrontendUserAuthentication && $GLOBALS['TSFE']->fe_user->userSession) {
             return $GLOBALS['TSFE']->fe_user;
         }
         return $GLOBALS['BE_USER'] ?? null;
